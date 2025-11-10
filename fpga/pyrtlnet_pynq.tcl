@@ -1,17 +1,14 @@
-# Link the pyrtlnet IP created by `pyrtlnet_ip.tcl` with the Zynq Processing
-# System, via AXI DMA.
-#
-# Tested with Vivado 2024.1
+# Point Vivado to both the default and Digilent board repositories
+set_param board.repoPaths [file join $::env(XILINX_VIVADO) "data/boards/board_files"]
 
 set project_dir [file normalize "pyrtlnet_pynq"]
-# This `ip_repo_dir` must be consistent with `pyrtlnet_ip.tcl`'s `ip_repo_dir`.
 set ip_repo_dir [file normalize "pyrtlnet_ip_repo"]
 
-# Configure the project, and add the pyrtlnet IP repo. The IP repo is created
-# by `pyrtlnet_ip.tcl`.
-set_param board.repoPaths [get_property LOCAL_ROOT_DIR [xhub::get_xstores xilinx_board_store]]
+# Create project for Zynq-7000 device used on PYNQ-Z1/Z2
 create_project pyrtlnet_pynq "$project_dir" -part xc7z020clg400-1 -force
-set_property board_part tul.com.tw:pynq-z2:part0:1.0 [current_project]
+
+#modified to fit the pynq Z1
+set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
 set_property  ip_repo_paths  "$ip_repo_dir" [current_project]
 update_ip_catalog
 

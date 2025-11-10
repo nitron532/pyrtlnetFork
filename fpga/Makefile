@@ -21,14 +21,17 @@ pyrtlnet_ip_repo/src/pyrtl_inference_axi.v: pyrtl_inference_axi.v pyrtlnet_ip.tc
 # to this fpga/ directory.
 pyrtlnet.bit pyrtlnet.hwh: pyrtlnet_ip_repo/src/pyrtl_inference_axi.v pyrtlnet_pynq.tcl
 	$(VIVADO_BATCH) -source pyrtlnet_pynq.tcl
-	cp pyrtlnet_pynq/pyrtlnet_pynq.runs/impl_1/design_1_wrapper.bit pyrtlnet.bit
-	cp pyrtlnet_pynq/pyrtlnet_pynq.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh pyrtlnet.hwh
+# 	cp pyrtlnet_pynq/pyrtlnet_pynq.runs/impl_1/design_1_wrapper.bit pyrtlnet.bit
+# 	cp pyrtlnet_pynq/pyrtlnet_pynq.gen/sources_1/bd/design_1/hw_handoff/design_1.hwh pyrtlnet.hwh
+	copy pyrtlnet_pynq\pyrtlnet_pynq.runs\impl_1\design_1_wrapper.bit pyrtlnet.bit
+	copy pyrtlnet_pynq\pyrtlnet_pynq.gen\sources_1\bd\design_1\hw_handoff\design_1.hwh pyrtlnet.hwh
 
 # Copy all required assets to the Pynq Z2 board, via rsync over ssh. This
 # assumes that the Pynq Z2 is accessable over the network, and has been
 # assigned the default hostname `pynq`.
 deploy: ../pyrtlnet/inference_util.py ../pyrtlnet/numpy_inference.py pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz
-	rsync -av -e ssh ../pyrtlnet pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz xilinx@pynq:
+# 	rsync -av -e ssh ../pyrtlnet pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz xilinx@pynq:
+	rsync -av -e ssh ../pyrtlnet pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz xilinx@192.168.0.96:
 
 clean:
 	rm -rf NA pyrtlnet_ip pyrtlnet_ip_repo pyrtlnet_pynq pyrtl_inference_axi.v pyrtl_inference_axi_test.v mnist_test_data.npz quantized.npz quantized.tflite pyrtlnet.bit pyrtlnet.hwh
