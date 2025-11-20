@@ -31,7 +31,7 @@ pyrtlnet.bit pyrtlnet.hwh: pyrtlnet_ip_repo/src/pyrtl_inference_axi.v pyrtlnet_p
 # assigned the default hostname `pynq`.
 deploy: ../pyrtlnet/inference_util.py ../pyrtlnet/numpy_inference.py pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz
 # 	rsync -av -e ssh ../pyrtlnet pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz xilinx@pynq:
-	rsync -av -e ssh ../pyrtlnet pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz xilinx@192.168.0.96:
+	rsync -av -e ssh ../pyrtlnet pyrtlnet.bit pyrtlnet.hwh fpga_inference.py quantized.npz mnist_test_data.npz xilinx@192.168.0.83:
 
 clean:
 	rm -rf NA pyrtlnet_ip pyrtlnet_ip_repo pyrtlnet_pynq pyrtl_inference_axi.v pyrtl_inference_axi_test.v mnist_test_data.npz quantized.npz quantized.tflite pyrtlnet.bit pyrtlnet.hwh

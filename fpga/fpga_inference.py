@@ -75,6 +75,8 @@ def main() -> None:
     print("Loading bitstream... ", end="", flush=True)
     start = time.time()
     overlay = pynq.Overlay("pyrtlnet.bit")
+    # print("Listing available devices...")
+    # print(pynq.pl_server.device.Device.active_device)
     print(f"done ({time.time() - start:.1f} seconds)")
 
     # Prepare the test image.
